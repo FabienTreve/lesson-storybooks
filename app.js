@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
@@ -44,8 +45,12 @@ mongoose.connect(keys.mongoURI, {
 
 var app = express();
 
+// Body parer Middleware
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+// Method Override Middleware
+app.use(methodOverride('_method'));
 
 // Handlebars Middleware
 app.engine('handlebars', exphbs({
@@ -65,7 +70,7 @@ app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: false
-}))
+}));
 
 // Passport Middleware
 app.use(passport.initialize());
@@ -88,5 +93,5 @@ app.use('/stories', stories);
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
+    console.log(`Server started on port ${port}`)
 });

@@ -34,9 +34,15 @@
         <div class="row">
             <div class="input-field">
                 <h5>Tell Us Your Story</h5>
-                <textarea name="body">{{story.body}}</textarea>
+                <textarea name="body" class="ckeditor">{{story.body}}</textarea>
             </div>
         </div>
         <input type="submit" value="Save" class="btn">
     </form>
 </div>
+<script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('body', {
+        plugins: 'wysiwygarea,toolbar,basicstyles,link'
+    });
+</script>
